@@ -1,18 +1,18 @@
 import express from 'express';
-import { skillController } from './project.controller';
 import validateRequest from '../../middlewares/validateRequest';
 import { zodProjectSchema } from './project.validation';
+import { projectController } from './project.controller';
 
 const router = express.Router();
 
 router.post(
   '/add',
   validateRequest(zodProjectSchema),
-  skillController.addEx,
+  projectController.addProject,
 );
-router.get('/', skillController.getAll);
-router.get('/:id', skillController.getSingleEx);
-router.patch('/:id', skillController.updateEx);
-router.delete('/:id', skillController.deleteEx);
+router.get('/', projectController.getAll);
+router.get('/:id', projectController.getSingleProject);
+router.patch('/:id', projectController.updateProject);
+router.delete('/:id', projectController.deleteProject);
 
-export const ExperienceRoutes = router;
+export const ProjectRoutes = router;

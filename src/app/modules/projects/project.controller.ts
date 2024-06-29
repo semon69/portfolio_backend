@@ -2,59 +2,59 @@ import httpStatus from 'http-status';
 import catchAsync from '../../utils/catchAsync';
 import sendResponse from '../../utils/sendResponse';
 import { Request, Response } from 'express';
-import { experienceServices } from './project.service';
+import { projectServices } from './project.service';
 
-const addEx = catchAsync(async (req: Request, res: Response) => {
-  const result = await experienceServices.addEx(req.body);
+const addProject = catchAsync(async (req: Request, res: Response) => {
+  const result = await projectServices.addProject(req.body);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experience added successfully !',
+    message: 'Project added successfully !',
     data: result,
   });
 });
 const getAll = catchAsync(async (req: Request, res: Response) => {
-  const result = await experienceServices.getAll();
+  const result = await projectServices.getAll();
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experience data fetched successfully !',
+    message: 'Project data fetched successfully !',
     data: result,
   });
 });
-const getSingleEx = catchAsync(async (req: Request, res: Response) => {
-  const result = await experienceServices.getSingleEx(req.params.id);
+const getSingleProject = catchAsync(async (req: Request, res: Response) => {
+  const result = await projectServices.getSingleProject(req.params.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'A Experience data fetched successfully !',
+    message: 'A Project data fetched successfully !',
     data: result,
   });
 });
-const updateEx = catchAsync(async (req: Request, res: Response) => {
-  const result = await experienceServices.updateEx(req.body, req.params.id);
+const updateProject = catchAsync(async (req: Request, res: Response) => {
+  const result = await projectServices.updateProject(req.body, req.params.id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'Experience data updated successfully !',
-    data: result,
-  });
-});
-
-const deleteEx = catchAsync(async (req: Request, res: Response) => {
-  const result = await experienceServices.deleteEx(req.params.id);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: 'Experience deleted successfully !',
+    message: 'Project data updated successfully !',
     data: result,
   });
 });
 
-export const skillController = {
-  addEx,
+const deleteProject = catchAsync(async (req: Request, res: Response) => {
+  const result = await projectServices.deleteProject(req.params.id);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Project deleted successfully !',
+    data: result,
+  });
+});
+
+export const projectController = {
+  addProject,
   getAll,
-  getSingleEx,
-  updateEx,
-  deleteEx,
+  getSingleProject,
+  updateProject,
+  deleteProject,
 };

@@ -40,7 +40,7 @@ const updateProject = async (payload: Partial<TProject>, id: string) => {
     { new: true },
   );
   if (!updateProject) {
-    throw new Error('Experience not found');
+    throw new Error('Project not found');
   }
   return updateProject;
 };
@@ -48,12 +48,12 @@ const updateProject = async (payload: Partial<TProject>, id: string) => {
 const deleteProject = async (id: string) => {
   const deletedProject = await Project.findByIdAndDelete(id);
   if (!deletedProject) {
-    throw new Error('Experience not found');
+    throw new Error('Project not found');
   }
   // return updatedContact
 };
 
-export const experienceServices = {
+export const projectServices = {
   addProject,
   getAll,
   getSingleProject,
