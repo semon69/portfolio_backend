@@ -7,6 +7,7 @@ import { UserRoutes } from './app/modules/auth/auth.routes';
 import { SkillRoutes } from './app/modules/skills/skills.routes';
 import { ExperienceRoutes } from './app/modules/experience/experience.routes';
 import { ProjectRoutes } from './app/modules/projects/project.routes';
+import { BlogRoutes } from './app/modules/blog/blog.routes';
 const app: Application = express();
 
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use('/api/v1', UserRoutes);
 app.use('/api/v1/experience', ExperienceRoutes);
 app.use('/api/v1/skill', SkillRoutes);
 app.use('/api/v1/project', ProjectRoutes);
+app.use('/api/v1/blog', BlogRoutes);
 
 app.use(notFound);
 app.use(globalErrorHandler);
