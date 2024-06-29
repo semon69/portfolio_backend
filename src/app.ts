@@ -12,14 +12,14 @@ const app: Application = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors())
+// app.use(cors())
 
-// app.use(
-//   cors({
-//     origin: ['https://contactmanagementfrontend-semon69s-projects.vercel.app'],
-//     credentials: true,
-//   }),
-// );
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+  }),
+);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello from my portfolio backend!');
