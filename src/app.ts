@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: ['https://portfolio-dashboard-seven.vercel.app'],
+    origin: ['https://portfolio-dashboard-seven.vercel.app', 'http://localhost:5173'],
     credentials: true,
   }),
 );

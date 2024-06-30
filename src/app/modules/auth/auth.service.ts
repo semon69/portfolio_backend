@@ -35,6 +35,7 @@ export const loginUser = async (payload: {
 };
 
 export const registerUserIntoDb = async (payload: TUser) => {
+  payload.role = "admin"
   const result = await User.create(payload);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
   const { password, ...otherFields } = result.toObject();
