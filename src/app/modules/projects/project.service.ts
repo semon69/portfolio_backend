@@ -2,12 +2,13 @@ import { TProject } from './project.interface';
 import Project from './project.model';
 
 const addProject = async (payload: TProject) => {
-  const { title, image, description, g_frontend, g_backend, live_link } =
+  const { title, image, tech, description, g_frontend, g_backend, live_link } =
     payload;
 
   const newProject = new Project({
     title,
     image,
+    tech,
     description,
     g_frontend,
     g_backend,
@@ -32,11 +33,11 @@ const getSingleProject = async (id: string) => {
 };
 
 const updateProject = async (payload: Partial<TProject>, id: string) => {
-  const { title, image, description, g_frontend, g_backend, live_link } =
+  const { title, image,tech, description, g_frontend, g_backend, live_link } =
     payload;
   const updateProject = await Project.findByIdAndUpdate(
     id,
-    { title, image, description, g_frontend, g_backend, live_link },
+    { title, image, tech, description, g_frontend, g_backend, live_link },
     { new: true },
   );
   if (!updateProject) {
