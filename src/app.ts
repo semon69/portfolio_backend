@@ -20,6 +20,7 @@ app.use(
       'https://portfolio-dashboard-seven.vercel.app',
       'http://localhost:5173',
       'https://emon69.netlify.app',
+      'https://mt-portfolio-seven.vercel.app',
     ],
     credentials: true,
   }),
