@@ -1,4 +1,4 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, SignOptions } from 'jsonwebtoken';
 
 export const createToken = (
   jwtPayload: { role: string; email: string },
@@ -6,7 +6,7 @@ export const createToken = (
   expiresIn: string,
 ) => {
   return jwt.sign(jwtPayload, secret, {
-    expiresIn,
+    expiresIn: expiresIn as SignOptions['expiresIn'],
   });
 };
 
@@ -26,7 +26,8 @@ export const createResetToken = (
   currentPasswordHash: string,
 ) => {
   return jwt.sign({ email, purpose: 'reset' }, resetSecret(currentPasswordHash), {
-    expiresIn: process.env.JWT_RESET_EXPIRES_IN || '15m',
+    expiresIn: (process.env.JWT_RESET_EXPIRES_IN ||
+      '15m') as SignOptions['expiresIn'],
   });
 };
 
