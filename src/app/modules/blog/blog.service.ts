@@ -1,14 +1,16 @@
 import { TBlog } from './blog.interface';
 import Blog from './blog.model';
-import Experience from './blog.model';
 
 const addBlog = async (payload: TBlog) => {
-  const { title, image, description, } = payload;
+  const { title, image, description, excerpt, tags, published } = payload;
 
-  const newBlog = new Experience({
+  const newBlog = new Blog({
     title,
     image,
     description,
+    excerpt,
+    tags,
+    published,
   });
 
   await newBlog.save();
@@ -16,7 +18,9 @@ const addBlog = async (payload: TBlog) => {
 };
 
 const getAll = async () => {
-  const blogs = await Blog.find();
+  // Newest first. Older records predate timestamps, so _id is the
+  // tiebreaker — it embeds creation time.
+  const blogs = await Blog.find().sort({ createdAt: -1, _id: -1 });
   return blogs;
 };
 
@@ -29,16 +33,30 @@ const getSingleBlog = async (id: string) => {
 };
 
 const updateBlog = async (payload: Partial<TBlog>, id: string) => {
-  const { title, image, description } = payload;
-  const updateBlog = await Blog.findByIdAndUpdate(
-    id,
-    { title, image, description },
-    { new: true },
-  );
-  if (!updateBlog) {
+  // Only assign what the caller actually sent, so a partial update can't
+  // blank out fields it never mentioned.
+  const updates: Partial<TBlog> = {};
+  const fields: (keyof TBlog)[] = [
+    'title',
+    'image',
+    'description',
+    'excerpt',
+    'tags',
+    'published',
+  ];
+
+  fields.forEach((field) => {
+    if (payload[field] !== undefined) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (updates as any)[field] = payload[field];
+    }
+  });
+
+  const updatedBlog = await Blog.findByIdAndUpdate(id, updates, { new: true });
+  if (!updatedBlog) {
     throw new Error('Blog not found');
   }
-  return updateBlog;
+  return updatedBlog;
 };
 
 const deleteBlog = async (id: string) => {
@@ -46,7 +64,6 @@ const deleteBlog = async (id: string) => {
   if (!deletedBlog) {
     throw new Error('Blog not found');
   }
-  // return updatedContact
 };
 
 export const blogServices = {
