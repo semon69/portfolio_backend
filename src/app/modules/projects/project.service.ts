@@ -20,8 +20,11 @@ const addProject = async (payload: TProject) => {
 };
 
 const getAll = async () => {
-  const exs = await Project.find();
-  return exs;
+  // Newest first. Records written before timestamps existed have no
+  // createdAt, so _id is the tiebreaker — an ObjectId embeds its
+  // creation time.
+  const projects = await Project.find().sort({ createdAt: -1, _id: -1 });
+  return projects;
 };
 
 const getSingleProject = async (id: string) => {
