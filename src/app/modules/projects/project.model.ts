@@ -7,8 +7,8 @@ const projectSchema = new mongoose.Schema<TProject>({
     image: { type: String , required: true},
     tech: { type: String , required: true},
     g_backend: { type: String },
-    g_frontend: { type: String, required: true },
-    live_link: { type: String, required: true },
+    g_frontend: { type: String },
+    live_link: { type: String },
   });
   
   const Project = model<TProject>('Project', projectSchema);
