@@ -14,14 +14,26 @@ app.use(express.json());
 app.use(cookieParser());
 // app.use(cors())
 
+// Allowed browser origins. A request from anywhere else gets no
+// Access-Control-Allow-Origin header, so the browser blocks the response
+// even though the server answered — add new deployments here.
+const allowedOrigins = [
+  // Public site
+  'https://mdemonsheikh.vercel.app',
+  'https://mt-portfolio-seven.vercel.app',
+  'https://emon69.netlify.app',
+
+  // Dashboard
+  'https://portfolio-dashboard-seven.vercel.app',
+
+  // Local development
+  'http://localhost:5173',
+  'http://localhost:5174',
+];
+
 app.use(
   cors({
-    origin: [
-      'https://portfolio-dashboard-seven.vercel.app',
-      'http://localhost:5173',
-      'https://emon69.netlify.app',
-      'https://mt-portfolio-seven.vercel.app',
-    ],
+    origin: allowedOrigins,
     credentials: true,
   }),
 );
